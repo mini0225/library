@@ -34,3 +34,6 @@ table{
   border-spacing : 0; /*보더 사이 간격*/
 }
 
+input, textarea, select{
+  box-sizing: border-box;
+}

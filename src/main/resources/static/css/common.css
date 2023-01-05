@@ -11,6 +11,29 @@
   font-size : 14px;
 }
 
+*::-webkit-scrollbar{ /*스크롤바 테두리*/
+  width : 8px;
+}
+*::-webkit-scrollbar-thumb{ /*스크롤*/
+  background-color: #3e3e3e;
+  border-radius: 5px;
+
+}
+
+body {
+  height: 100%;
+  background-image: url(/static/images/main_background.jpg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  background-attachment: fixed; /*스크롤 내려도 이미지 안바뀌게 고정*/
+}
+
+#container {
+  margin: 0px auto;
+  width: 1400px;
+}
+
 input, select, textarea, table, th, td {
   border: 1px solid #dbdbdb;
   border-radius : 4px;
@@ -23,5 +46,18 @@ input, textarea { /*작성하려고 클릭시에 아웃라인 잡히는거 없�
 
 input, select, textarea {
   padding : 5px;
-  
+  cursor: pointer;
+}
+
+button{
+  border : 1px solid #dbdbdb;
+  border-radius: 4px;
+  padding : 5px;
+  background-color: white;
+  cursor : pointer;
+}
+
+button:hover{
+  background-color: #fafafa;
+  color: #3e3e3e;
 }

@@ -1,70 +1,4 @@
-body {
-  height: 100%;
-  background-image: url(/static/images/main_background.jpg);
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: cover;
-  background-attachment: fixed; /*스크롤 내려도 이미지 안바뀌게 고정*/
-}
-
-#container {
-  margin: 0px auto;
-  width: 1400px;
-}
-
-.header-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-
-  padding: 40px 20px;
-
-  width: 100%;
-  height: 50px;
-}
-
-.brand-logo a {
-  font-size: 30px;
-  font-weight: 600;
-  color: white;
-}
-
-.menu-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-
-  width: 70%;
-  height: 50px;
-}
-
-.menu-container li a {
-  font-size: 20px;
-  font-weight: 600;
-  color: white;
-}
-
-.account-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.account-container li a {
-  font-size: 18px;
-  font-weight: 600;
-  color: white;
-}
-
-.account-container li:nth-child(1)::after {
-  /*li 중에 첫번째꺼 골라서 after(뒤에)*/
-  content: "";
-  margin: 0px 5px;
-  height: 100%;
-  border-left: 2px solid white;
-}
-
-.main-container {
+.main-container {  /*메인메뉴 css는 페이지마다 고정이니까 따로 빼둔다.*/
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -123,4 +57,15 @@ body {
 
   font-size: 20px;
   text-align: center;
+}
+
+.search-button {
+  border: none;
+  background-color: #ffffff;
+
+  cursor: pointer;
+}
+
+.search-button .fa-magnifying-glass {
+  font-size: 20px;
 }
