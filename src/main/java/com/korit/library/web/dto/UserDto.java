@@ -23,6 +23,8 @@ public class UserDto {
     @NotBlank
     private String password;
     @NotBlank
+    private String repassword;
+    @NotBlank
     private String name;
     @NotBlank
     @Email
