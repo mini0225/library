@@ -1,25 +1,32 @@
-package com.korit.library.repository;
-
-
-import org.apache.ibatis.annotations.Mapper;
-
-@Mapper
-public interface BookRepository {
-    /*
+/*
         REPOSITORY 구성
         C(create) : 도서등록
-        R(read) : 도서 전체 조회,
-                  도서 검색
-                      1. 도서코드
-                      2. 도서명
-                      3. 저자
-                      4. 출판사
-                          1. 전체 조회
-                          2. 20개씩 가져 오기
+        R(read) : 1. 도서 전체 조회(ㄱ. 전체 조회 , ㄴ. 20개씩 가져 오기)
+                      1) 도서 검색
+                        ㄱ) 도서코드
+                        ㄴ) 도서명
+                        ㄷ) 저자
+                        ㄹ) 출판사
+                      2) 카테고리
+                 2. 도서코드로 조회
         U(update) : 도서수정
         D(delete) : 도서삭제
 
     */
+
+package com.korit.library.repository;
+
+
+import com.korit.library.web.dto.BookMstDto;
+import com.korit.library.web.dto.SearchReqDto;
+import org.apache.ibatis.annotations.Mapper;
+
+import java.util.List;
+import java.util.Map;
+
+@Mapper
+public interface BookRepository {
+    public List<BookMstDto> searchBook(SearchReqDto searchReqDto);
 
 
 }

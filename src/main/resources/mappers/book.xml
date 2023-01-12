@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.korit.library.repository.BookRepository">
+    <select id="searchBook" parameterType="com.korit.library.web.dto.SearchReqDto" resultType="com.korit.library.web.dto.BookMstDto">
+        SELECT <!--표기방식....알리아스 alias-->
+            book_id as bookId,
+            book_code as bookCode,
+            book_name as bookName,
+            author,
+            publisher,
+            publication_date as publicationDate,
+            category
+        from
+            book_mst
+        where
+            1 = 1  <!-- 전체조회 편법 ㅎㅎ true를 놔둠으로 써 where아래가 없더라도 검색이 되게한다. -->
+
+            <if test="searchValue != null">
+                and	( <!--concat : mysql 문자열, 문자열을 합쳐준다-->
+                        book_name like CONCAT('%', #{searchValue}, '%')  <!--searchValue 는 표현식으로 나중에 바뀜.-->
+                    or author like CONCAT('%', #{searchValue}, '%')
+                    or publisher like CONCAT('%', #{searchValue}, '%')
+                )
+            </if>
+
+            <if test = "category != null">
+                and category = #{category}    <!--쿼리 문법 : #{} -->
+            </if>
+
+        order by
+            <choose> <!--else-->
+                <when test = 'order == "bookName"'>book_name,</when><!-- '가나다 순' --> <!--else if-->
+                <when test = 'order == "author"'>author,</when>
+                <when test = 'order == "dateAsc"'>publication_date,</when>
+                <when test = 'order == "dateDesc"'>publication_date desc,</when><!-- desc : 최신순 -->
+                <!--<otherwise></otherwise> = else -->
+
+            </choose>
+                book_id
+
+            <if test = 'limit == "Y"'>
+                limit #{index},#{count} <!-- limit #{page번호}, #{수량} -->
+            </if>
+    </select>
+
+
+
+</mapper>
