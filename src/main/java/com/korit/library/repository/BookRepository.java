@@ -18,6 +18,8 @@ package com.korit.library.repository;
 
 
 import com.korit.library.web.dto.BookMstDto;
+import com.korit.library.web.dto.BookReqDto;
+import com.korit.library.web.dto.CategoryDto;
 import com.korit.library.web.dto.SearchReqDto;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -27,6 +29,9 @@ import java.util.Map;
 @Mapper
 public interface BookRepository {
     public List<BookMstDto> searchBook(SearchReqDto searchReqDto);
-
+    public BookMstDto findBookByBookCode(String bookCode);
+    public List<CategoryDto> findAllCategory();
+    public int saveBook(BookReqDto bookReqDto);
+    public int updateBookByBookCode(BookReqDto bookReqDto);
 
 }
