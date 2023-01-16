@@ -75,6 +75,8 @@
         values
             (0,#{bookCode}, #{bookName}, #{author},#{publisher},#{publicationDate},#{category})
     </insert>
+
+    <!--put-->
     <update id = "updateBookByBookCode" parameterType="com.korit.library.web.dto.BookReqDto">
         update book_mst
         set
@@ -87,16 +89,34 @@
             book_code = #{bookCode}
     </update>
 
+    <!--patch-->
     <update id = "maintainUpdateBookByBookCode" parameterType="com.korit.library.web.dto.BookReqDto">
         update book_mst
         set
             book_name = #{bookName},
-            <if test = 'author != null'>author = if(#{author} = '',null,#{author}),</if>
-            <if test = 'publisher != null'>publisher = if(#{publisher} = '',null,#{publisher}),</if>
-            <if test = 'publication_date != null'>publication_date = if(#{publicationDate} = '',null,#{publicationDate}),</if>
+            <if test = 'author != null and author !=""'>author = #{author},</if>
+            <if test = 'publisher != null and publisher!=""'>publisher = #{publisher},</if>
+            <if test = 'publicationDate != null'>publication_date = #{publicationDate},</if>
             category = #{category}
         where
             book_code = #{bookCode}
     </update>
 
+    <delete id = "deleteBookByBookCode">
+        delete
+        from
+            book_mst
+        where
+            book_code = #{bookCode}
+
+    </delete>
+
+    <insert id = "registerBookImages" parameterType="List">
+        insert into book_image
+        values
+            <foreach collection = "list" item = "file" separator=","> <!--item = 변수명 -->
+                (0, #{file.bookCode}, #{file.saveName}, #{file.originName})
+            </foreach>
+
+    </insert>
 </mapper>
