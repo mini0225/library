@@ -16,6 +16,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
 
+
+
 @Service
 public class BookService {
 
@@ -77,19 +79,19 @@ public class BookService {
             String extension = originFileName.substring(originFileName.lastIndexOf(".")); //substring : 뒤에서 부터 '.'까지 잘라라 ex) .png
             String tempFileName = UUID.randomUUID().toString().replaceAll("-","") + extension; //UUID 임시로 id잡아준다 => 가짜이름 + extension(.png)
 
-            Path uploadPath = Paths.get(filePath + "/book/" + tempFileName);
-            //filePath + "/book/" + tempFileName 이 경로로 uploadPath에 지정?저장?
+            Path uploadPath = Paths.get(filePath + "book/" + tempFileName);
+            //filePath + "/book/" + tempFileName 이 경로로 uploadPath에 지정?저장? / /book/은 영역나누기용(?)
             //path, paths : java.nio.file 로 import
 
-            File f = new File(filePath + "/book");
+            File f = new File(filePath + "book");
 
-            if(!f.exists()){ // ->경로유무 확인.
+            if(!f.exists()){ // ->위 파일(f)의 경로유무 확인.
                 f.mkdirs();
-            }// => 경로가 없으면 경로 생성해라
+            }// => 경로가 없으면 경로 생성해라 mkdirs = make directory
 
             try {  //try패치....?
-                Files.write(uploadPath, file.getBytes()); //위에서 들고온거 써라...
-            } catch (IOException e) {
+                Files.write(uploadPath, file.getBytes()); //위에서 들고온 이미지(=file.getBytes) 써라.
+            } catch (IOException e) { //경로 유무 확인.
                 throw new RuntimeException(e);
             }
 
@@ -104,5 +106,28 @@ public class BookService {
 
         bookRepository.registerBookImages(bookImageDtos);
 
+    }
+
+    public List<BookImageDto> getBooks(String bookCode){
+        return bookRepository.findBookImageAll(bookCode);
+    }
+
+    public void removeBookImage(int imageId){
+        BookImageDto bookImageDto = bookRepository.findBookImageByImageId(imageId);
+
+        if(bookImageDto ==null){
+            Map<String, String> errorMap = new HashMap<>();
+            errorMap.put("Error", "존재하지 않는 이미지 ID 입니다.");
+
+            throw new CustomValidationException(errorMap);
+
+        }
+
+        if( bookRepository.deleteBookImage(imageId) >0){ //지우면 '1'을 return 해줌. => 0보다 크면 지웠다는 말.
+            File file = new File(filePath + "book/" + bookImageDto.getSaveName());
+            if(file.exists()){ //경로가 존재한다면.
+                file.delete(); //해당파일을 지워라.
+            }
+        }
     }
 }
