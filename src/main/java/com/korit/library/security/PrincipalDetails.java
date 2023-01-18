@@ -1,18 +1,14 @@
 package com.korit.library.security;
 
-import com.korit.library.web.dto.RoleDtlDto;
-import com.korit.library.web.dto.RoleMstDto;
-import com.korit.library.web.dto.UserDto;
+import com.korit.library.entity.UserMst;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 import java.util.Map;
 
 
@@ -21,7 +17,7 @@ import java.util.Map;
 public class PrincipalDetails implements UserDetails {
 
     @Getter
-    private final UserDto user;
+    private final UserMst user;
     private Map<String, Object> response;
 
 
@@ -47,8 +43,8 @@ public class PrincipalDetails implements UserDetails {
 ////            System.out.println(roleName == role.getAuthority());
 //        }
 
-        user.getRoleDtlDto().forEach(dtl -> {
-            authorities.add(() -> dtl.getRoleMstDto().getRoleName());
+        user.getRoleDtl().forEach(dtl -> {
+            authorities.add(() -> dtl.getRoleMst().getRoleName());
         });
         return authorities; //모든 권한이 다 들어옴.
     }

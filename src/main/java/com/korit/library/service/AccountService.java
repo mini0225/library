@@ -1,9 +1,9 @@
 package com.korit.library.service;
 
 
+import com.korit.library.entity.UserMst;
 import com.korit.library.exception.CustomValidationException;
 import com.korit.library.repository.AccountRepository;
-import com.korit.library.web.dto.UserDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -19,19 +19,19 @@ public class AccountService {
     @Autowired
     private AccountRepository accountRepository;
 
-    public UserDto registerUser(UserDto userDto){
+    public UserMst registerUser(UserMst userMst){
 
-        userDto.setPassword(new BCryptPasswordEncoder().encode(userDto.getPassword()));
+        userMst.setPassword(new BCryptPasswordEncoder().encode(userMst.getPassword()));
         //암호화된 비밀번호는 길이가 길어지기 때문에 mysql workbench에서 길이를 45->100으로 늘려준다.
 
-        accountRepository.saveUser(userDto);
-        accountRepository.saveRole(userDto);
-        return userDto;
+        accountRepository.saveUser(userMst);
+        accountRepository.saveRole(userMst);
+        return userMst;
     }
 
 
     public void duplicateUsername(String username){
-        UserDto user = accountRepository.findUserByUsername(username);
+        UserMst user = accountRepository.findUserByUsername(username);
 //        log.info("{}", user);
 //        log.info("ROLE_DTL{}", user.getRoleDtlDto());
 //        log.info("ROLE_MST{}", user.getRoleDtlDto().get(0));
@@ -56,7 +56,7 @@ public class AccountService {
         }
     }
 
-    public UserDto getUser(int userId){
+    public UserMst getUser(int userId){
         return accountRepository.findUserByUserId(userId);
     }
 }

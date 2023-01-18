@@ -1,4 +1,4 @@
-package com.korit.library.web.dto;
+package com.korit.library.entity;
 
 
 import lombok.AllArgsConstructor;
@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class BookImageDto {
+public class BookImage {
     private int imageId;
     private String bookCode;
     private String saveName;

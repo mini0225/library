@@ -1,11 +1,10 @@
-package com.korit.library.web.dto;
+package com.korit.library.entity;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import springfox.documentation.annotations.ApiIgnore;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -16,7 +15,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class UserDto {
+public class UserMst {
 
     @ApiModelProperty(hidden = true) //swagger 에서 post요청에서 예시에서 숨길거 숨기기
     private int userId;
@@ -43,7 +42,7 @@ public class UserDto {
     private String email;
 
     @ApiModelProperty(hidden = true)//swagger 에서 post요청에서 예시에서 숨길거 숨기기
-    private List<RoleDtlDto> roleDtlDto;
+    private List<RoleDtl> roleDtl;
 
     @ApiModelProperty(hidden = true)//swagger 에서 post요청에서 예시에서 숨길거 숨기기
     private LocalDateTime createDate;

@@ -1,4 +1,4 @@
-package com.korit.library.web.dto;
+package com.korit.library.entity;
 
 
 import io.swagger.annotations.ApiModelProperty;
@@ -15,7 +15,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @Data
 
-public class BookMstDto {
+public class BookMst {
 
     @ApiModelProperty(hidden = true)
     private int bookId;

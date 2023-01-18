@@ -1,17 +1,16 @@
 package com.korit.library.web.api;
 
 import com.korit.library.aop.annotation.ValidAspect;
+import com.korit.library.entity.UserMst;
 import com.korit.library.security.PrincipalDetails;
 import com.korit.library.service.AccountService;
 import com.korit.library.web.dto.CMRespDto;
 
-import com.korit.library.web.dto.UserDto;
 import io.swagger.annotations.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.config.web.servlet.oauth2.resourceserver.OAuth2ResourceServerSecurityMarker;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -33,12 +32,12 @@ public class AccountApi {
     @ApiOperation(value = "회원가입", notes = "회원가입 요청 메소드")  //@Api, @ApiOperation 으로 swagger 변경가능...카톡참조
     @ValidAspect
     @PostMapping("/register")
-    public ResponseEntity<? extends CMRespDto<? extends UserDto>> register(@RequestBody @Valid UserDto userDto, BindingResult bindingResult){
+    public ResponseEntity<? extends CMRespDto<? extends UserMst>> register(@RequestBody @Valid UserMst userMst, BindingResult bindingResult){
 
-        accountService.duplicateUsername(userDto.getUsername());
-        accountService.compareToPassword(userDto.getPassword(), userDto.getRepassword());
+        accountService.duplicateUsername(userMst.getUsername());
+        accountService.compareToPassword(userMst.getPassword(), userMst.getRepassword());
 
-        UserDto user = accountService.registerUser(userDto);
+        UserMst user = accountService.registerUser(userMst);
 
         return ResponseEntity
                 .created(URI.create("/api/account/user/" + user.getUserId()))
@@ -56,7 +55,7 @@ public class AccountApi {
     })
 
     @GetMapping("/user/{userId}")
-    public ResponseEntity<?  extends CMRespDto<? extends UserDto>> getUser(
+    public ResponseEntity<?  extends CMRespDto<? extends UserMst>> getUser(
 //            @ApiParam(value="사용자 식별 코드") : column이 별로 없을경우 가능, 해당변수만 적용시킬경우
             @PathVariable int userId){
         return ResponseEntity.ok().body(new CMRespDto<>(HttpStatus.OK.value(),"Success", accountService.getUser(userId)));
