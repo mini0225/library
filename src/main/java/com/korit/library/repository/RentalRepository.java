@@ -10,9 +10,10 @@ import java.util.List;
 public interface RentalRepository {
 
     public int rentalAvailability (int userId);
-
+    public int loanRental (int bookId);
     public int saveRentalMst(RentalMst rentalMst);
     public int saveRentalDtl(List<RentalDtl> rentalDtlList);
+    public int updateReturnDate(int bookId);
 
 
 }
