@@ -27,6 +27,8 @@ import java.util.List;
 
 @Mapper
 public interface BookRepository {
+
+    public int getBookTotalCount(SearchNumberListReqDto searchNumberListReqDto);
     public List<BookMst> searchBook(SearchReqDto searchReqDto);
     public BookMst findBookByBookCode(String bookCode);
     public List<CategoryView> findAllCategory();

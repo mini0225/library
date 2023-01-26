@@ -23,7 +23,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
     @Value("${file.path}")
     private String filePath;
 
-    //http://127.0.0.1:5500 서버에서 들어오는 모든 요청("/**")에 대해서 CORS 오류 해결
+    //http://127.0.0.1:5500 서버에서 들어오는 모든 요청("/**")에 대해서 CORS 오류 해결, 컴터켤때마다 ip 바뀌면 수정필요함.
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**").allowedOrigins("http://127.0.0.1:5500/");
