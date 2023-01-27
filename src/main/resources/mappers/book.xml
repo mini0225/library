@@ -152,6 +152,17 @@
 
     </delete>
 
+    <delete id ="deleteBooks" parameterType="list">
+        delete
+        from
+            book_mst
+        where
+            book_id in <!--book_id in(bookId, bookId)-->
+            <foreach collection="list" item ="bookId" open="(" close=")" separator=",">
+                #{bookId}
+            </foreach>
+    </delete>
+
     <insert id = "registerBookImages" parameterType="List">
         insert into book_image
         values

@@ -24,9 +24,10 @@ public class WebMvcConfig implements WebMvcConfigurer {
     private String filePath;
 
     //http://127.0.0.1:5500 서버에서 들어오는 모든 요청("/**")에 대해서 CORS 오류 해결, 컴터켤때마다 ip 바뀌면 수정필요함.
+    //allowedMethods("*") 모든 요청 다 풀기. * 메소드 명 입력하면 특정 메소드만 허용 가능
     @Override
     public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/**").allowedOrigins("http://127.0.0.1:5500/");
+        registry.addMapping("/**").allowedMethods("*").allowedOrigins("http://127.0.0.1:5500/");
     }
 
     @Override
