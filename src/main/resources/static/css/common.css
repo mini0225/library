@@ -57,7 +57,11 @@ button{
   cursor : pointer;
 }
 
-button:hover{
+button:disabled{
+  cursor:default;
+}
+
+button:not(:disabled):hover{ /*disabled가 아닌거만 hover를 걸어라*/
   background-color: #fafafa;
   color: #3e3e3e;
 }
