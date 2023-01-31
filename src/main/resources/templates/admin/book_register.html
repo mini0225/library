@@ -61,19 +61,19 @@
               <div class="item-group">
                 <label class="register-label">도서코드</label>
                 <input type="text" class="register-input">
-                <div class="error-message">이미 등록된 도서코드입니다.</div>
+                <div class="error-message"></div>
               </div>
 
               <div class="item-group">
                 <label class="register-label">도서명</label>
                 <input type="text" class="register-input">
-                <div class="error-message">빈값일 수 없습니다.</div>
+                <div class="error-message"></div>
               </div>
 
               <div class="item-group">
                 <label class="register-label">저자</label>
                 <input type="text" class="register-input">
-                <div class="error-message">빈값일 수 없습니다.</div>
+                <div class="error-message"></div>
               </div>
 
               <div class="item-group">
@@ -90,10 +90,10 @@
 
               <div class="item-group">
                 <label class="register-label">분야</label>
-                <select class="register-input">
-                  <option value="">ㅎㅇ</option>
+                <select class="register-input category-select"> <!--book_register.js // book_search.js 의 카테고리 불러오는 class가 달라서 이렇게 두개로 표기-->
+                  <!-- <option value="">테스트</option> -->
                 </select>
-                <div class="error-message">분야를 선택하세요.</div>
+                <div class="error-message"></div>
               </div>
 
               <button class="register-button">등록하기</button>
@@ -107,7 +107,11 @@
                 <div class="img-container">
                   <img src="/static/images/noimg.png" class="book-img">
                 </div>
-                <button type="button" class="img-register-button" disabled>이미지 등록</button>
+                <div class = "button-group">
+                  <button type="button" class="img-register-button" disabled>이미지 등록</button>
+                  <button type="button" class="img-cancel-button" disabled>취소</button>
+
+                </div>
               </form>
             </div>
           </div>    
