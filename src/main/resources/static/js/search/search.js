@@ -10,6 +10,8 @@ window.onload = () => {
   ComponentEvent.getInstance().addClickEventCategoryCheckboxes();
   ComponentEvent.getInstance().addScrollEventPaging();
   ComponentEvent.getInstance().addClickEventSearchButton();
+
+  SearchService.getInstance().onLoadSearch();
 };
 
 let maxPage = 0;
@@ -99,6 +101,28 @@ class SearchService {
     return this.#instance;
   }
 
+  onLoadSearch(){
+    const URLSearch = new URLSearchParams(location.search);
+    
+    if(URLSearch.has("searchValue")){ //searchValue가 있는 물어봄
+
+      const searchValue = URLSearch.get("searchValue");
+      
+      console.log(searchValue)
+  
+      if(searchValue ==""){
+        return;
+      } //공백이면 검색안됨.
+
+      const searchInput = document.querySelector(".search-input");
+      searchInput.value = searchValue;
+      const searchButton = document.querySelector(".search-button");
+      searchButton.click();
+
+    } 
+
+  }
+
   setMaxPage(){
     const totalCount = SearchApi.getInstance().getTotalCount();
     maxPage = totalCount %10 ==0 ? totalCount/10 : Math.floor(totalCount /10) +1;
@@ -128,8 +152,12 @@ class SearchService {
   loadSearchBooks() {
     const responseData = SearchApi.getInstance().searchBook();
     const contentFlex = document.querySelector(".content-flex");
+    const principal = PrincipalApi.getInstance().getPrincipal();//로그인상태들고오기
+    const _bookButtons = document.querySelectorAll(".book-buttons");
 
-    responseData.forEach((data) => {
+    const bookButtonsLength = _bookButtons == null ? 0 : _bookButtons.length;
+        
+    responseData.forEach((data, index) => {
       contentFlex.innerHTML += `
       <div class="info-container">
               
@@ -158,13 +186,55 @@ class SearchService {
           data.category
         }</div>
         <div class="book-buttons">
-          <button type="button" class="rental-button">대여하기</button>
-          <button type="button" class="like-button">추천</button>
+          
         </div>
       </div>
     </div>
 
       `;
+      const bookButtons = document.querySelectorAll(".book-buttons");
+      if(principal == null){
+        if(data.rentalDtlId !=0 && data.returnDate == null){
+          bookButtons[bookButtonsLength + index].innerHTML=`
+            <button type="button" class="rental-button" disabled>대여중</button>
+          `;
+        }else{
+          bookButtons[bookButtonsLength + index].innerHTML=`
+            <button type="button" class="rental-button" disabled>대여가능</button>
+          `;
+        }
+        
+        bookButtons[bookButtonsLength + index].innerHTML +=`
+          <button type="button" class="like-button" disabled>추천</button>
+        `;
+      }else{ //로그인되어져있음.
+        if(data.rentalDtlId !=0 && data.returnDate == null && data.userId != principal.user.userId){ //남이빌렸다는 if
+          bookButtons[bookButtonsLength + index].innerHTML=`
+            <button type="button" class="rental-button" disabled>대여중</button>
+          `;
+        }else if(data.rentalDtlId !=0 && data.returnDate == null && data.userId == principal.user.userId){
+          bookButtons[bookButtonsLength + index].innerHTML=`
+            <button type="button" class="return-button" >반납하기</button>
+          `;
+        }else{
+          bookButtons[bookButtonsLength + index].innerHTML=`
+            <button type="button" class="rental-button" >대여하기</button>
+          `;
+        }
+
+        if(data.likeId != 0){
+          bookButtons[bookButtonsLength + index].innerHTML +=`
+            <button type="button" class="dislike-button" disabled>추천취소</button>
+          `;
+        }else{
+          bookButtons[bookButtonsLength + index].innerHTML +=`
+            <button type="button" class="like-button">추천</button>
+          `;
+        }
+      }
+
+
+      
     });
   }
 }

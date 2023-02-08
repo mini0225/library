@@ -16,7 +16,7 @@ public class LikeService {
 
     private final LikeRepository likeRepository;
 
-    public void like (int bookId, int userId) {
+    public int like (int bookId, int userId) {
 
         BookLike bookLike = BookLike.builder()
                 .bookId(bookId)
@@ -30,9 +30,10 @@ public class LikeService {
         }
 
         likeRepository.addLike(bookLike);
+        return likeRepository.getLikeCount(bookId);
     }
 
-    public void dislike (int bookId, int userId) {
+    public int dislike (int bookId, int userId) {
 
         BookLike bookLike = BookLike.builder()
                 .bookId(bookId)
@@ -46,9 +47,6 @@ public class LikeService {
         }
 
         likeRepository.deleteLike(bookLike);
+        return likeRepository.getLikeCount(bookId);
     }
-
-
-
-
 }

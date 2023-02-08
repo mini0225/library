@@ -47,6 +47,7 @@
             rd.rental_dtl_id as rentalDtlId,
             rd.return_date as returnDate,
             rm.user_id as userId,
+            bl.like_id as likeId,
             lc.like_count as likeCount
         from
             book_mst bm
