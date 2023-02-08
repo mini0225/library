@@ -15,11 +15,12 @@
         where
             1=1
             <if test='searchValue != null and searchValue != ""'>
-            (book_name like concat('%',#{searchValue},'%')
+            and
+                (book_name like concat('%',#{searchValue},'%')
             or
-            author like concat('%',#{searchValue},'%')
+                author like concat('%',#{searchValue},'%')
             or
-            publisher like concat('%',#{searchValue},'%'))
+                publisher like concat('%',#{searchValue},'%'))
             </if>
         <if test='categories !=null'>
             and
@@ -68,6 +69,7 @@
         where
             1=1
             <if test='searchValue != null and searchValue != ""'>
+            and
                 (bm.book_name like concat('%',#{searchValue},'%')
             or
                 bm.author like concat('%',#{searchValue},'%')

@@ -16,7 +16,7 @@ article, aside, footer, header, nav, main {
 
 }
 
-html, body{
+html /*body*/ {
   line-height : 1;
   height : 100%
 }

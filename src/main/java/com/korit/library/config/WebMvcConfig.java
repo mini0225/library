@@ -27,7 +27,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
     //allowedMethods("*") 모든 요청 다 풀기. * 메소드 명 입력하면 특정 메소드만 허용 가능
     @Override
     public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/**").allowedMethods("*").allowedOrigins("http://127.0.0.1:5500/");
+        registry.addMapping("/**").allowedMethods("*").allowedOrigins("*");
     }
 
     @Override

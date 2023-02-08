@@ -1,11 +1,18 @@
 window.onload = () => {
+  HeaderService.getInstance().loadHeader();
+
   SearchService.getInstance().clearBookList();
   SearchService.getInstance().loadSearchBooks();
 
   SearchService.getInstance().loadCategories();
+  SearchService.getInstance().setMaxPage();
 
   ComponentEvent.getInstance().addClickEventCategoryCheckboxes();
+  ComponentEvent.getInstance().addScrollEventPaging();
+  ComponentEvent.getInstance().addClickEventSearchButton();
 };
+
+let maxPage = 0;
 
 //user가 검색할때 사용할거
 const searchObj = {
@@ -75,9 +82,9 @@ class SearchApi {
       success: (response) => {
         responseData = response.data;
       },
-      error: (error) => {
+      error: error => {
         console.log(error);
-      },
+      }
     });
     return responseData;
   }
@@ -90,6 +97,12 @@ class SearchService {
       this.#instance = new SearchService();
     }
     return this.#instance;
+  }
+
+  setMaxPage(){
+    const totalCount = SearchApi.getInstance().getTotalCount();
+    maxPage = totalCount %10 ==0 ? totalCount/10 : Math.floor(totalCount /10) +1;
+
   }
 
   loadCategories() {
@@ -177,7 +190,45 @@ class ComponentEvent {
           searchObj.categories.splice(index, 1); //배열위치부터 한개 지워라
         }
         console.log(searchObj.categories); //checkbox 조회
+        // document.querySelector(".search-button").click(); => 카테고리 클릭시 바로 적용
       };
     });
+  }
+
+  addScrollEventPaging(){
+    const html = document.querySelector("html");
+    const body = document.querySelector("body");
+
+    body.onscroll =() =>{
+      console.log("client - offset - scrollTop : " + (body.offsetHeight -html.clientHeight - html.scrollTop));
+      const scrollPosition = body.offsetHeight - html.clientHeight - html.scrollTop;
+
+      if(scrollPosition < 250 && searchObj.page < maxPage){
+        searchObj.page++;
+        SearchService.getInstance().loadSearchBooks();
+      }
+    }
+  }
+  addClickEventSearchButton(){
+    const searchButton =document.querySelector(".search-button")
+    
+    const searchInput = document.querySelector(".search-input");
+    
+    searchButton.onclick = () =>{
+      searchObj.searchValue = searchInput.value;
+      searchObj.page = 1;
+      window.scrollTo(0,0);
+
+      SearchService.getInstance().clearBookList();
+      SearchService.getInstance().setMaxPage();
+      SearchService.getInstance().loadSearchBooks();
+    }
+
+    searchInput.onkeyup = () =>{
+      if(window.event.keyCode == 13){
+        searchButton.click();
+      }
+    }
+
   }
 }
