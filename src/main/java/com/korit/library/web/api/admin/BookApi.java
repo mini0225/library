@@ -23,7 +23,7 @@ import java.util.Map;
 @Api(tags = {"관리자용 도서관리 API"})
 @RequestMapping("/api/admin")
 @RestController
-//@CrossOrigin(origins = "http://127.0.0.1:5500")
+//@CrossOrigin(origins = "http://localhost:5500")
 //CORS오류 해결방법. 백에서는 8000번 포트 프론트에서는 5500번 포트, 달라서 생기는 오류
 public class BookApi {
 

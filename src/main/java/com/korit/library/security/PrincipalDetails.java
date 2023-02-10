@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -14,11 +15,17 @@ import java.util.Map;
 
 @RequiredArgsConstructor
 @AllArgsConstructor
-public class PrincipalDetails implements UserDetails {
+public class PrincipalDetails implements UserDetails, OAuth2User {
+
 
     @Getter
     private final UserMst user;
     private Map<String, Object> response;
+//    AllargsConstructor 있으니까 없어도됨.
+//    public PrincipalDetails(UserMst user, Map<String, Object> response){
+//        this.user = user;
+//        this.response = response;
+//    }
 
 
     //권한을 list로 관리하는 부분.
@@ -92,4 +99,16 @@ public class PrincipalDetails implements UserDetails {
         return true; //회원가입 후 전화 또는 이메일 인증으로 본인 인증(?) 할때
                     //휴먼계정 전환시에
     }
+    @Override
+    public String getName() {
+        return user.getName();
+    }
+
+    @Override
+    public Map<String, Object> getAttributes() { //user 정보가 다 담겨잇음.
+
+        return response;
+    }
+
+
 }

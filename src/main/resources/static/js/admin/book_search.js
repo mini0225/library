@@ -31,7 +31,7 @@ class BookSearchApi{
     $.ajax({
       async:false,
       type :"get",
-      url : "http://127.0.0.1:8000/api/admin/books",
+      url : "http://localhost:8000/api/admin/books",
       data :searchObj,
       dataType:"json",
       success:response =>{
@@ -52,7 +52,7 @@ class BookSearchApi{
     $.ajax({
       async:false,
       type :"get",
-      url : "http://127.0.0.1:8000/api/admin/books/totalcount",
+      url : "http://localhost:8000/api/admin/books/totalcount",
       data : {
           "category" : searchObj.category,
           "searchValue" : searchObj.searchValue
@@ -76,7 +76,7 @@ class BookSearchApi{
     $.ajax({
       async:false,
       type :"get",
-      url : "http://127.0.0.1:8000/api/admin/categories",
+      url : "http://localhost:8000/api/admin/categories",
       data :searchObj,
       dataType:"json",
       success:response =>{
@@ -97,7 +97,7 @@ class BookSearchApi{
     $.ajax({
         async : false,
         type : "delete",
-        url : "http://127.0.0.1:8000/api/admin/books",
+        url : "http://localhost:8000/api/admin/books",
         contentType : "application/json",
         data : JSON.stringify(
           {userIds: deleteArray}  //{key : value}

@@ -38,7 +38,7 @@ class BookRegisterApi {
     $.ajax({
       async : false,
       type : "post",
-      url : "http://127.0.0.1:8000/api/admin/book",
+      url : "http://localhost:8000/api/admin/book",
       contentType : "application/json",
       data : JSON.stringify(bookObj),
       dataType : "json",
@@ -61,7 +61,7 @@ class BookRegisterApi {
     $.ajax({
       async : false,
       type : "post", //multiparts는 무조건 post
-      url : `http://127.0.0.1:8000/api/admin/book/${bookObj.bookCode}/images`,
+      url : `http://localhost:8000/api/admin/book/${bookObj.bookCode}/images`,
       encType : "multipart/form-data", //formdata 통째로 날릴때 사용
       //데이터 날리는 방법 쿼리스트링//json//multipart/formData(json과 유사)
       contentType : false,
@@ -87,7 +87,7 @@ class BookRegisterApi {
     $.ajax({
       async : false,
       type : "get",
-      url : "http://127.0.0.1:8000/api/admin/categories",
+      url : "http://localhost:8000/api/admin/categories",
       dataType : "json",
       success: response =>{
         responseData = response.data;

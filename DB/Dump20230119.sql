@@ -2,7 +2,7 @@ CREATE DATABASE  IF NOT EXISTS `library` /*!40100 DEFAULT CHARACTER SET utf8mb4 
 USE `library`;
 -- MySQL dump 10.13  Distrib 8.0.31, for Win64 (x86_64)
 --
--- Host: 127.0.0.1    Database: library
+-- Host: localhost    Database: library
 -- ------------------------------------------------------
 -- Server version	8.0.31
 

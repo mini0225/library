@@ -41,6 +41,9 @@ public class UserMst {
     @ApiModelProperty(name="email", value = "이메일", example = "abc@naver.com", required = true)
     private String email;
 
+    @ApiModelProperty(name="provider", value = "OAuth 데이터 출처", example = "google", required = false)
+    private String provider;
+
     @ApiModelProperty(hidden = true)//swagger 에서 post요청에서 예시에서 숨길거 숨기기
     private List<RoleDtl> roleDtl;
 
